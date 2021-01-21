@@ -17,6 +17,7 @@ let fnArray = [
   'jd_joy_steal',
   'jd_joy',
   'jd_fruit',
+  'jd_immortal',
   'jd_jdzz',
   'jd_kd',
   'jd_live',
@@ -41,6 +42,16 @@ let fnArray = [
   'jd_unsubscribe',
   'jx_sign',
   'jd_bean_change',
+  'jd_bj',
+  'jd_gyec',
+  'jd_live_redrain_half',
+  'jd_live_redrain_nian',
+  'jd_live_redrain_offical',
+  'jd_mh',
+  'jd_ms',
+  'jd_xg',
+  'jd_xxl_gh',
+  'jd_xxl'
 
 
 
