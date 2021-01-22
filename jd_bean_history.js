@@ -1,7 +1,7 @@
 /**
  * 历史京豆收益， beanDayHistoryLength 为展示几天的收支
  */
-const beanDayHistoryLength = 7
+const beanDayHistoryLength = 5
 
 //是否展示今日的收益
 const showTodayDetail = true
@@ -44,7 +44,7 @@ if ($.isNode()) {
       $.isLogin = true;
       $.nickName = '';
       $.message = '';
-      $.todayDetail = ''
+      $.todayDetailMsg = '今日收益明细\n'
       await TotalBean();
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
       if (!$.isLogin) {
@@ -69,9 +69,9 @@ if ($.isNode()) {
 async function showMsg() {
   if ($.errorMsg) return
   if ($.isNode()) {
-    await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `账号${$.index}：${$.nickName || $.UserName}\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n${$.historyBeanMsg}`, { url: `https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean` })
+    await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `账号${$.index}：${$.nickName || $.UserName}\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n${$.historyBeanMsg}\n${$.todayDetailMsg}`, { url: `https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean` })
   }
-  $.msg($.name, '', `账号${$.index}：${$.nickName || $.UserName}\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n${$.historyBeanMsg}`, {"open-url": "https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean"});
+  $.msg($.name, '', `账号${$.index}：${$.nickName || $.UserName}\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n${$.historyBeanMsg}\n${$.todayDetailMsg}`, {"open-url": "https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean"});
 }
 async function bean() {
   // console.log(`北京时间零点时间戳:${parseInt((Date.now() + 28800000) / 86400000) * 86400000 - 28800000}`);
@@ -128,8 +128,11 @@ async function bean() {
     }
     $.historyBeanMsg+=`${key}: 收入${incomeBean}个京豆，支出${expenseBean}个京豆\n`
   }
+  //展示今日收益明细
   if(showTodayDetail) {
-    
+    for(let item of dayHistoryBean[dayArr[0]]) {
+      $.todayDetailMsg += `"${item.date.substr(11)} ${item.eventMassage}" 收入 ${item.amount} 个京豆🐶\n`
+    }
   }
   await queryexpirejingdou();
   // console.log(`昨日收入：${$.incomeBean}个京豆 🐶`);
