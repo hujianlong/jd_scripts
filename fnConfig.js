@@ -7,7 +7,7 @@ let fnArray = [
   'jd_cash',
   'jd_club_lottery',
   'jd_crazy_joy',
-  'jd_crazy_joy_coin',
+  // 'jd_crazy_joy_coin',
   'JD_DailyBonus',
   'jd_dreamFactory',
   'jd_family',
@@ -41,7 +41,6 @@ let fnArray = [
   'jd_unbind',
   'jd_unsubscribe',
   'jx_sign',
-  'jd_bean_change',
   'jd_bj',
   'jd_gyec',
   'jd_live_redrain_half',
@@ -51,7 +50,8 @@ let fnArray = [
   'jd_ms',
   'jd_xg',
   'jd_xxl_gh',
-  'jd_xxl'
+  'jd_xxl',
+  'jd_bean_history',
 
 
 
