@@ -10,19 +10,15 @@
 网页查看地址 : https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean
 支持京东双账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
-============QuantumultX==============
+quantumultx
 [task_local]
 #京豆变动通知
-2 9 * * * https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_change.js, tag=京豆变动通知, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true
-================Loon===============
+2 9 * * * https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_change.js, tag=京豆变动通知, enabled=true
+Loon
 [Script]
 cron "2 9 * * *" script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_change.js, tag=京豆变动通知
-=============Surge===========
-[Script]
-京豆变动通知 = type=cron,cronexp=2 9 * * *,wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_change.js
-
-============小火箭=========
-京豆变动通知 = type=cron,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_change.js, cronexpr="2 9 * * *", timeout=3600, enable=true
+Surge
+京豆变动通知 = type=cron,cronexp=2 9 * * *,wake-system=1,timeout=440,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_change.js
  */
 const $ = new Env('京豆变动通知');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -86,7 +82,7 @@ if ($.isNode()) {
 async function showMsg() {
   if ($.errorMsg) return
   if ($.isNode()) {
-    await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `账号${$.index}：${$.nickName || $.UserName}\n昨日收入：${$.incomeBean}京豆 🐶\n昨日支出：${$.expenseBean}京豆 🐶\n当前京豆：${$.beanCount}京豆 🐶${$.message}`, { url: `https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean` })
+    // await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `账号${$.index}：${$.nickName || $.UserName}\n昨日收入：${$.incomeBean}京豆 🐶\n昨日支出：${$.expenseBean}京豆 🐶\n当前京豆：${$.beanCount}京豆 🐶${$.message}`, { url: `https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean` })
   }
   $.msg($.name, '', `账号${$.index}：${$.nickName || $.UserName}\n昨日收入：${$.incomeBean}京豆 🐶\n昨日支出：${$.expenseBean}京豆 🐶\n当前京豆：${$.beanCount}京豆 🐶${$.message}`, {"open-url": "https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean"});
 }
@@ -102,7 +98,7 @@ async function bean() {
   let page = 1, t = 0, yesterdayArr = [];
   do {
     let response = await getJingBeanBalanceDetail(page);
-    console.log(`第${page}页: ${JSON.stringify(response)}`);
+    // console.log(`第${page}页: ${JSON.stringify(response)}`);
     if (response && response.code === "0") {
       page++;
       let detailList = response.detailList;
