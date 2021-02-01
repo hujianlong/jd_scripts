@@ -87,7 +87,7 @@ async function bean() {
   let dayArr = []
   let page = 1, t = 0, yesterdayArr = [],dayHistoryBean = {};
   for(let index=0;index<beanDayHistoryLength;index++) {
-    let tmpDay = parseDate(new Date(today.setDate(curDay - index)))
+    let tmpDay = parseDate(new Date(new Date().setDate(curDay - index)))
     // console.debug(`day ${-index} =  ${parseDate(tmpDay)}`)
     dayArr.push(tmpDay)
     dayHistoryBean[tmpDay] = []
