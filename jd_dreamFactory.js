@@ -34,7 +34,7 @@ const randomCount = $.isNode() ? 20 : 5;
 let tuanActiveId = `6S9y4sJUfA2vPQP6TLdVIQ==`;
 const jxOpenUrl = `openjd://virtual?params=%7B%20%22category%22:%20%22jump%22,%20%22des%22:%20%22m%22,%20%22url%22:%20%22https://wqsd.jd.com/pingou/dream_factory/index.html%22%20%7D`;
 let cookiesArr = [], cookie = '', message = '';
-const inviteCodes = ['orH8JsCqaQ766yYEwSVCAQ=='];
+const inviteCodes = ['orH8JsCqaQ766yYEwSVCAQ==@gWY3rp84ch6etUgFyDMCGQ==','orH8JsCqaQ766yYEwSVCAQ==@gWY3rp84ch6etUgFyDMCGQ=='];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 $.tuanIds = [];
 if ($.isNode()) {

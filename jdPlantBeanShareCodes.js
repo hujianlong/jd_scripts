@@ -7,8 +7,8 @@
 // 同一个京东账号的好友互助码用@符号隔开,不同京东账号之间用&符号或者换行隔开,下面给一个示例
 // 如: 京东账号1的shareCode1@京东账号1的shareCode2&京东账号2的shareCode1@京东账号2的shareCode2
 let PlantBeanShareCodes = [
-  'y4ccm47du6cn2nrzwxwxjnvs6u3h7wlwy7o5jii',
-  ''
+  'y4ccm47du6cn2nrzwxwxjnvs6u3h7wlwy7o5jii@olmijoxgmjutyx55upqaqxrblt7f3h26dgj2riy',
+  'y4ccm47du6cn2nrzwxwxjnvs6u3h7wlwy7o5jii@olmijoxgmjutyx55upqaqxrblt7f3h26dgj2riy'
 ]
 // 判断github action里面是否有种豆得豆互助码
 if (process.env.PLANT_BEAN_SHARECODES) {

@@ -28,7 +28,7 @@ let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭�
 let cookiesArr = [], cookie = '', message;
 let helpAuthor = true;
 const randomCount = $.isNode() ? 20 : 5;
-const inviteCodes = ['Ih41au2zZP0n82a6iw','']
+const inviteCodes = ['Ih41au2zZP0n82a6iw@ZE9yDpTmF41PtTyHmA8','Ih41au2zZP0n82a6iw@ZE9yDpTmF41PtTyHmA8']
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])

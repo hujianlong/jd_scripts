@@ -35,7 +35,10 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [], cookie = '', message;
 const randomCount = $.isNode() ? 20 : 5;
 
-const inviteCodes = ['',''];
+const inviteCodes = [
+  `oH7rU5rAYoPJE4cOI7goSQ@nKkXSuOqQalZs6e_uOdRAA`,
+  `oH7rU5rAYoPJE4cOI7goSQ@nKkXSuOqQalZs6e_uOdRAA`,
+];
 
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
