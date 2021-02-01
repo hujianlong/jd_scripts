@@ -25,8 +25,13 @@ inputs:
           name: feedPets_joy_moneyTree_plantBean_dreamFactory_jdfactory_nC
           cronExpression: "0 3 */1 * * * *"
           enable: true
+<<<<<<< HEAD
           argument: jd_joy_feedPets&jd_joy&jd_moneyTree&jd_plantBean&jd_dreamFactory&jd_jdfactory&jd_nianCollect&jd_jxcfd
     - timer: #宠汪汪积分兑换奖品 #宠汪汪偷好友积分与狗 #点点券 #东东小窝 #京东直播18豆
+=======
+          argument: jd_joy_feedPets&jd_joy&jd_moneyTree&jd_plantBean&jd_dreamFactory&jd_jdfactory&jd_nianCollect&jd_jxcfd&jd_crazy_joy_coin
+    - timer: #宠汪汪积分兑换奖品 #宠汪汪偷好友积分与狗 #点点券 #东东小窝 #京东直播18豆 #集鞭炮赢京豆
+>>>>>>> f7eab017ece64018aa9722556e304a4806bec4a7
         parameters:
           name: joyreward_joysteal_necklace_smallhome_live
           cronExpression: "0 0 0-16/8,20 * * * *"
@@ -46,10 +51,10 @@ inputs:
           argument: jd_speed&jd_daily_egg&jd_nian&jd_superMarket
     - timer: #京豆变动通知 #疯狂的joy #京东排行榜 #领京豆额外奖励 #京东年货节 #京东神仙书院
         parameters:
-          name: beanchange_crazyjoy_rankingList_beanhome_nh_immortal
+          name: beanchange_crazyjoy_rankingList_beanhome_nh_immortal&jd_5g
           cronExpression: "0 30 7 * * * *"
           enable: true
-          argument: jd_bean_change&jd_crazy_joy&jd_rankingList&jd_bean_home&jd_car&jd_nh&jd_immortal&jd_immortal_answer&jd_crazy_joy_coin
+          argument: jd_bean_change&jd_crazy_joy&jd_rankingList&jd_bean_home&jd_car&jd_nh&jd_immortal&jd_immortal_answer&jd_crazy_joy_coin&jd_xgyl&jd_super_box
     - timer: #金融养猪 #十元街 #京东快递 #京东赚赚 #签到领现金 #京喜签到 #京东炸年兽签到任务 #京东炸年兽AR #京东炸年兽小程序
         parameters:
           name: pigPet_syj_kd_jdzz_cash_sign_niansign_nianar_nianwechat
