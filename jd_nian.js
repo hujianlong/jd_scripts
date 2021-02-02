@@ -45,7 +45,7 @@ if ($.isNode()) {
   cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
-const inviteCodes = ['cgxZLmSAIrvb6A_ICg3GrwUwbRkC5s0pkLrJgWWPeXEC-wf5Jw@cgxZaDXHRsKOm3-gTFf7vB-OmyK_oowFw-p4j55BCFcRZTtWIIAE','IgNWdiLGaPbb7w_JDQSv7pC0wz0EGg8bSvJnMcVHCnGavnVBw0tfj3Eu@cgxZLmSAIrvb6A_ICg3GrwUwbRkC5s0pkLrJgWWPeXEC-wf5Jw@cgxZaDXHRsKOm3-gTFf7vB-OmyK_oowFw-p4j55BCFcRZTtWIIAE'];
+const inviteCodes = ['cgxZLmSAIrvb6A_ICg3GrwUwbRkC5s0pkLrJgWWPeXEC-wf5Jw@cgxZaDXHRsKOm3-gTFf7vB-OmyK_oowFw-p4j55BCFcRZTtWIIAE','cgxZLmSDJL_b7A_MDQHGrx2-FFZCMQ-6BNWC4oV1TnoZwsL5RQ@IgNWdiLGaPbb7w_JDQSv7pC0wz0EGg8bSvJnMcVHCnGavnVBw0tfj3Eu@cgxZLmSAIrvb6A_ICg3GrwUwbRkC5s0pkLrJgWWPeXEC-wf5Jw@cgxZaDXHRsKOm3-gTFf7vB-OmyK_oowFw-p4j55BCFcRZTtWIIAE'];
 const pkInviteCodes = ['cgxZLmSAIrvb6A_ICg3GrwUwbRkC5s0pkLrJgWWPeXEC-wf5Jw@cgxZaDXHRsKOm3-gTFf7vB-OmyK_oowFw-p4j55BCFcRZTtWIIAE','']
 
 !(async () => {
