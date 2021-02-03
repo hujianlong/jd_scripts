@@ -64,12 +64,12 @@ inputs:
           qualifier: $DEFAULT
           argument: jd_live_redrain_offical&jd_live_redrain_nian
     - timer:
-        name: jd_super
+        name: jd_newYearMoney_lottery
         parameters:
-          cronExpression: 40 21 * * *
+          cronExpression: 0 0 9,12,16,20 * * *
           enable: true
           qualifier: $DEFAULT
-          argument: jd_super
+          argument: jd_newYearMoney_lottery
   handler: index.main_handler
   memorySize: 128
   name: jd_all
