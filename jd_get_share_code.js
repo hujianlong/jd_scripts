@@ -654,6 +654,32 @@ async function getJoy(){
     })
   })
 }
+async function getNianTaskList(body = {}) {
+  return new Promise(resolve => {
+    $.post(taskPostUrl("nian_getTaskDetail", body, "nian_getTaskDetail"), async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
+        } else {
+          if (safeGet(data)) {
+            data = JSON.parse(data);
+            if (data.data.bizCode === 0) {
+              if (JSON.stringify(body) === "{}") {
+                // console.log(`您的好友助力码为${data.data.result.inviteId}`)
+                console.log(`【账号${$.index}（${$.nickName || $.UserName}）炸年兽】${data.data.result.inviteId}`)
+              }
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
 async function getShareCode() {
   console.log(`======账号${$.index}开始======`)
   await getJdFactory()
@@ -664,6 +690,7 @@ async function getShareCode() {
   await getJDFruit()
   await getJdZZ()
   await getJoy()
+  await getNianTaskList()
   console.log(`======账号${$.index}结束======\n`)
 }
 
