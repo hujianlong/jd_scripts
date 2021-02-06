@@ -31,7 +31,7 @@ inputs:
         parameters:
           cronExpression: "0 3 */1 * * * *"
           enable: true
-          argument: jd_joy_feedPets&jd_joy&jd_moneyTree&jd_plantBean&jd_dreamFactory&jd_jdfactory&jd_nianCollect
+          argument: jd_joy_feedPets&jd_joy&jd_moneyTree&jd_plantBean&jd_dreamFactory&jd_jdfactory
     - timer: #宠汪汪积分兑换奖品 #宠汪汪偷好友积分与狗 #点点券 #东东小窝 #京东直播18豆
         name: joyreward_joysteal_necklace_smallhome_live
         parameters:
@@ -45,11 +45,11 @@ inputs:
           enable: true
           argument: jd_redPacket&jd_shop&jd_unsubscribe&jd_unbind&jd_lotteryMachine&jd_car&jd_ms&jd_xg&jd_xgyl
     - timer: #京东天天加速 #天天提鹅 #京东炸年兽
-        name: speed_daily_egg_nian
+        name: speed_daily_egg
         parameters:
           cronExpression: "0 8 */3 * * * *"
           enable: true
-          argument: jd_speed&jd_daily_egg&jd_nian
+          argument: jd_speed&jd_daily_egg
     - timer: #京东压岁钱抢百元卡
         name: newYearMoney_lottery
         parameters:
@@ -67,7 +67,7 @@ inputs:
         parameters:
           cronExpression: "0 3 1 * * * *"
           enable: true
-          argument: jd_pigPet&jd_syj&jd_kd&jd_jdzz&jd_cash&jx_sign&jd_nian_sign&jd_nian_ar&jd_nian_wechat&jd_festival
+          argument: jd_pigPet&jd_syj&jd_kd&jd_jdzz&jd_cash&jx_sign&jd_festival
   handler: index.main_handler
   memorySize: 128
   name: jd_all
