@@ -1,6 +1,8 @@
 /*
+2020-02-05发现兑换京豆API京东加了lks验证,目前此脚本已失效
 宠汪汪积分兑换奖品脚本, 目前脚本只兑换京豆，兑换京豆成功，才会发出通知提示，其他情况不通知。
-更新时间：2021-1-20
+更新时间：2021-02-06
+活动入口：京东APP我的-更多工具-宠汪汪
 兑换规则：一个账号一天只能兑换一次京豆。
 兑换奖品成功后才会有系统弹窗通知
 每日京豆库存会在0:00、8:00、16:00更新，经测试发现中午12:00也会有补发京豆。
@@ -9,17 +11,17 @@
 ==============Quantumult X==============
 [task_local]
 #宠汪汪积分兑换奖品
-0 0-16/8 * * * https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_reward.js, tag=宠汪汪积分兑换奖品, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
+0 0-16/8 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js, tag=宠汪汪积分兑换奖品, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
 
 ==============Loon==============
 [Script]
-cron "0 0-16/8 * * *" script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_reward.js,tag=宠汪汪积分兑换奖品
+cron "0 0-16/8 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js,tag=宠汪汪积分兑换奖品
 
 ================Surge===============
-宠汪汪积分兑换奖品 = type=cron,cronexp="0 0-16/8 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_reward.js
+宠汪汪积分兑换奖品 = type=cron,cronexp="0 0-16/8 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js
 
 ===============小火箭==========
-宠汪汪积分兑换奖品 = type=cron,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_reward.js, cronexpr="0 0-16/8 * * *", timeout=3600, enable=true
+宠汪汪积分兑换奖品 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js, cronexpr="0 0-16/8 * * *", timeout=3600, enable=true
  */
 const $ = new Env('宠汪汪积分兑换奖品');
 let joyRewardName = 20;//是否兑换京豆，默认开启兑换功能，其中20为兑换20京豆,500为兑换500京豆，0为不兑换京豆.数量有限先到先得
@@ -176,7 +178,7 @@ function getExchangeRewards() {
         "reqSource": "h5",
         "Connection": "keep-alive",
         "Accept": "*/*",
-        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+        "User-Agent": "jdapp;iPhone;9.4.0;14.3;67a220b5d1a98738c8ae0edf27590b61ebe36845;network/wifi;ADID/28457FF5-989E-433E-A2B7-D2F836DF5A39;supportApplePay/0;hasUPPay/0;hasOCPay/0;model/iPhone12,1;addressid/1399534633;supportBestPay/0;appBuild/167541;jdSupportDarkMode/0;pv/853.46;apprpd/MyJD_Main;ref/https%3A%2F%2Fplus.m.jd.com%2Findex%3Fdetainer%3D1398XHSIWsjshwe12%26lng%3D119.973056%26lat%3D31.717247%26sid%3D76edae7939313504d8b12165c113d49w%26un_area%3D12_978_4459_36521;psq/0;ads/;psn/67a220b5d1a98738c8ae0edf27590b61ebe36845|3664;jdv/0|kong|t_1000089893_157_0_184__556d452bef0a9a71|tuiguang|f9d0bfce73a04b72b87a93d10d63b17b|1612933353;adk/;app_device/IOS;pap/JA2015_311210|9.4.0|IOS 14.3;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
         "Referer": "https://jdjoy.jd.com/pet/index",
         "Accept-Language": "zh-cn",
         "Accept-Encoding": "gzip, deflate, br"
@@ -186,7 +188,7 @@ function getExchangeRewards() {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} API请求失败，请检查网路重试111`)
         } else {
           $.getExchangeRewardsRes = {};
           if (safeGet(data)) {
@@ -224,6 +226,7 @@ function exchange(saleInfoId, orderSource) {
         "sdkToken": ""
       }
     }
+    console.debug('````'+JSON.stringify(body))
     const option = {
       url: `${JD_API_HOST}/gift/new/exchange?reqSource=h5`,
       body: `${JSON.stringify(body)}`,
@@ -236,7 +239,7 @@ function exchange(saleInfoId, orderSource) {
         "Origin": "https://jdjoy.jd.com",
         "reqSource": "h5",
         "Connection": "keep-alive",
-        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+        "User-Agent": " jdapp;iPhone;9.4.0;14.3;67a220b5d1a98738c8ae0edf27590b61ebe36845;network/wifi;ADID/28457FF5-989E-433E-A2B7-D2F836DF5A39;supportApplePay/0;hasUPPay/0;hasOCPay/0;model/iPhone12,1;addressid/1399534633;supportBestPay/0;appBuild/167541;jdSupportDarkMode/0;pv/853.46;apprpd/MyJD_Main;ref/https%3A%2F%2Fplus.m.jd.com%2Findex%3Fdetainer%3D1398XHSIWsjshwe12%26lng%3D119.973056%26lat%3D31.717247%26sid%3D76edae7939313504d8b12165c113d49w%26un_area%3D12_978_4459_36521;psq/0;ads/;psn/67a220b5d1a98738c8ae0edf27590b61ebe36845|3664;jdv/0|kong|t_1000089893_157_0_184__556d452bef0a9a71|tuiguang|f9d0bfce73a04b72b87a93d10d63b17b|1612933353;adk/;app_device/IOS;pap/JA2015_311210|9.4.0|IOS 14.3;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
         "Referer": "https://jdjoy.jd.com/pet/index",
         "Content-Length": "10",
         "Cookie": cookie
@@ -246,7 +249,7 @@ function exchange(saleInfoId, orderSource) {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} API请求失败，请检查网路重试222`)
         } else {
           console.log(`兑换结果:${data}`);
           $.exchangeRes = {};
@@ -281,7 +284,7 @@ function TotalBean() {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} API请求失败，请检查网路重试333`)
         } else {
           if (data) {
             data = JSON.parse(data);

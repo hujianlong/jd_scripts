@@ -19,7 +19,7 @@ inputs:
         parameters:
           cronExpression: "0 0 0 * * * *"
           enable: true
-          argument: jd_blueCoin&jd_club_lottery&jd_car_exchange
+          argument: jd_blueCoin&jd_club_lottery&jd_car_exchange&jd_global&jd_global_mh
     - timer: #东东农场 #东东萌宠 #口袋书店 #京喜农场
         name: fruit_pet_bookshop_jxnc
         parameters:
