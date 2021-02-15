@@ -1,7 +1,7 @@
 /**
  * 历史京豆收益， beanDayHistoryLength 为展示几天的收支
  */
-const beanDayHistoryLength = 6
+const beanDayHistoryLength = 3
 
 //是否展示今日的收益
 const showTodayDetail = false

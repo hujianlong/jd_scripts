@@ -10,17 +10,17 @@
 ============Quantumultx===============
 [task_local]
 #环球挑战赛
-0 9,12,20,21 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js, tag=环球挑战赛, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/main/Icon/lxk0301/jd_global.png, enabled=true
+0 9,12,20,21 2-22 2 * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js, tag=环球挑战赛, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/main/Icon/lxk0301/jd_global.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "0 9,12,20,21 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js,tag=环球挑战赛
+cron "0 9,12,20,21 2-22 2 *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js,tag=环球挑战赛
 
 ===============Surge=================
-环球挑战赛 = type=cron,cronexp="0 9,12,20,21 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js
+环球挑战赛 = type=cron,cronexp="0 9,12,20,21 2-22 2 *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js
 
 ============小火箭=========
-环球挑战赛 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js, cronexpr="0 9,12,20,21 * * *", timeout=3600, enable=true
+环球挑战赛 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js, cronexpr="0 9,12,20,21 2-22 2 *", timeout=3600, enable=true
  */
 const $ = new Env('环球挑战赛');
 
@@ -50,8 +50,8 @@ if ($.isNode()) {
 
 const JD_API_HOST = 'https://api.m.jd.com/', actCode = 'visa-card-001';
 const inviteCodes = [
-    'OStUcGJuNWxkb2Nvb0xRVWxub2V2ZlNrZ1Z0ZHE5Y2lGQkhJUHQrcHY5az0=',
-    'TnFkUGN1aStRQjBFUHFKSUZZTnp0QT09'
+  'OStUcGJuNWxkb2Nvb0xRVWxub2V2ZlNrZ1Z0ZHE5Y2lGQkhJUHQrcHY5az0=',
+  'TnFkUGN1aStRQjBFUHFKSUZZTnp0QT09'
 ];
 $.invites = [];
 !(async () => {

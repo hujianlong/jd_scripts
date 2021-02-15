@@ -178,7 +178,7 @@ function getExchangeRewards() {
         "reqSource": "h5",
         "Connection": "keep-alive",
         "Accept": "*/*",
-        "User-Agent": "jdapp;iPhone;9.4.0;14.3;67a220b5d1a98738c8ae0edf27590b61ebe36845;network/wifi;ADID/28457FF5-989E-433E-A2B7-D2F836DF5A39;supportApplePay/0;hasUPPay/0;hasOCPay/0;model/iPhone12,1;addressid/1399534633;supportBestPay/0;appBuild/167541;jdSupportDarkMode/0;pv/853.46;apprpd/MyJD_Main;ref/https%3A%2F%2Fplus.m.jd.com%2Findex%3Fdetainer%3D1398XHSIWsjshwe12%26lng%3D119.973056%26lat%3D31.717247%26sid%3D76edae7939313504d8b12165c113d49w%26un_area%3D12_978_4459_36521;psq/0;ads/;psn/67a220b5d1a98738c8ae0edf27590b61ebe36845|3664;jdv/0|kong|t_1000089893_157_0_184__556d452bef0a9a71|tuiguang|f9d0bfce73a04b72b87a93d10d63b17b|1612933353;adk/;app_device/IOS;pap/JA2015_311210|9.4.0|IOS 14.3;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
         "Referer": "https://jdjoy.jd.com/pet/index",
         "Accept-Language": "zh-cn",
         "Accept-Encoding": "gzip, deflate, br"
@@ -188,7 +188,7 @@ function getExchangeRewards() {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试111`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           $.getExchangeRewardsRes = {};
           if (safeGet(data)) {
@@ -226,7 +226,6 @@ function exchange(saleInfoId, orderSource) {
         "sdkToken": ""
       }
     }
-    console.debug('````'+JSON.stringify(body))
     const option = {
       url: `${JD_API_HOST}/gift/new/exchange?reqSource=h5`,
       body: `${JSON.stringify(body)}`,
@@ -239,7 +238,7 @@ function exchange(saleInfoId, orderSource) {
         "Origin": "https://jdjoy.jd.com",
         "reqSource": "h5",
         "Connection": "keep-alive",
-        "User-Agent": " jdapp;iPhone;9.4.0;14.3;67a220b5d1a98738c8ae0edf27590b61ebe36845;network/wifi;ADID/28457FF5-989E-433E-A2B7-D2F836DF5A39;supportApplePay/0;hasUPPay/0;hasOCPay/0;model/iPhone12,1;addressid/1399534633;supportBestPay/0;appBuild/167541;jdSupportDarkMode/0;pv/853.46;apprpd/MyJD_Main;ref/https%3A%2F%2Fplus.m.jd.com%2Findex%3Fdetainer%3D1398XHSIWsjshwe12%26lng%3D119.973056%26lat%3D31.717247%26sid%3D76edae7939313504d8b12165c113d49w%26un_area%3D12_978_4459_36521;psq/0;ads/;psn/67a220b5d1a98738c8ae0edf27590b61ebe36845|3664;jdv/0|kong|t_1000089893_157_0_184__556d452bef0a9a71|tuiguang|f9d0bfce73a04b72b87a93d10d63b17b|1612933353;adk/;app_device/IOS;pap/JA2015_311210|9.4.0|IOS 14.3;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
         "Referer": "https://jdjoy.jd.com/pet/index",
         "Content-Length": "10",
         "Cookie": cookie
@@ -249,7 +248,7 @@ function exchange(saleInfoId, orderSource) {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试222`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           console.log(`兑换结果:${data}`);
           $.exchangeRes = {};
@@ -284,7 +283,7 @@ function TotalBean() {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试333`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
             data = JSON.parse(data);
