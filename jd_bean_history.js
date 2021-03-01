@@ -4,7 +4,7 @@
 const beanDayHistoryLength = 3
 
 //是否展示今日的收益
-const showTodayDetail = false
+const showTodayDetail = true
 const $ = new Env('京豆变动历史统计');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
