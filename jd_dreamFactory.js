@@ -932,8 +932,10 @@ async function tuanActivity() {
 //如果团ID不为空，则查询QueryTuan()
 function QueryActiveConfig() {
   return new Promise((resolve) => {
+    let url = `https://m.jingxi.com/dreamfactory/tuan/QueryActiveConfig?activeId=${escape(tuanActiveId)}&_time=${Date.now()}&_=${Date.now()}&sceneval=2&g_login_type=1&_ste=1`
+    url += `&h5st=${decrypt(Date.now(),'','',url)}`
     const options = {
-      'url': `https://m.jingxi.com/dreamfactory/tuan/QueryActiveConfig?activeId=${escape(tuanActiveId)}&_time=${Date.now()}&_=${Date.now()}&sceneval=2&g_login_type=1&_ste=1&h5st=${decrypt(Date.now())}`,
+      'url': url,
       "headers": {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate, br",
@@ -1450,7 +1452,8 @@ function safeGet(data) {
 }
 
 function taskurl(functionId, body = '', stk) {
-  let url = `${JD_API_HOST}/dreamfactory/${functionId}?zone=dream_factory&${body}&sceneval=2&g_login_type=1&_time=${Date.now()}&_=${Date.now()}&_ste=1&h5st=${decrypt(Date.now(), stk)}`
+  let url = `${JD_API_HOST}/dreamfactory/${functionId}?zone=dream_factory&${body}&sceneval=2&g_login_type=1&_time=${Date.now()}&_=${Date.now()}&_ste=1`
+  url += `&h5st=${decrypt(Date.now(), stk, '', url)}`
   if (stk) {
     url += `&_stk=${stk}`;
   }
@@ -1469,13 +1472,15 @@ function taskurl(functionId, body = '', stk) {
   }
 }
 function newtasksysUrl(functionId, taskId, stk) {
-  let url = `${JD_API_HOST}/newtasksys/newtasksys_front/${functionId}?source=dreamfactory&bizCode=dream_factory&sceneval=2&g_login_type=1&_time=${Date.now()}&_=${Date.now()}&_ste=1&h5st=${decrypt(Date.now(), stk)}`;
+  let url = `${JD_API_HOST}/newtasksys/newtasksys_front/${functionId}?source=dreamfactory&bizCode=dream_factory&sceneval=2&g_login_type=1&_time=${Date.now()}&_=${Date.now()}&_ste=1`;
   if (taskId) {
     url += `&taskId=${taskId}`;
   }
   if (stk) {
     url += `&_stk=${stk}`;
   }
+  //传入url进行签名,加入位置不要错了，不然有些签名参数获取不到值
+  url += `&h5st=${decrypt(Date.now(), stk, '', url)}`
   return {
     url,
     "headers": {
@@ -1518,7 +1523,105 @@ function jsonParse(str) {
     }
   }
 }
-function decrypt(time, stk, type) {
+ /*
+ 修改时间戳转换函数，京喜工厂原版修改
+  */
+ Date.prototype.Format = function (fmt) {
+  var e,
+      n = this, d = fmt, l = {
+        "M+": n.getMonth() + 1,
+        "d+": n.getDate(),
+        "D+": n.getDate(),
+        "h+": n.getHours(),
+        "H+": n.getHours(),
+        "m+": n.getMinutes(),
+        "s+": n.getSeconds(),
+        "w+": n.getDay(),
+        "q+": Math.floor((n.getMonth() + 3) / 3),
+        "S+": n.getMilliseconds()
+      };
+  /(y+)/i.test(d) && (d = d.replace(RegExp.$1, "".concat(n.getFullYear()).substr(4 - RegExp.$1.length)));
+  for (var k in l) {
+    if (new RegExp("(".concat(k, ")")).test(d)) {
+      var t, a = "S+" === k ? "000" : "00";
+      d = d.replace(RegExp.$1, 1 == RegExp.$1.length ? l[k] : ("".concat(a) + l[k]).substr("".concat(l[k]).length))
+    }
+  }
+  return d;
+}
+ /**
+  * 新增url参数获取函数
+  * @param url_string
+  * @param param
+  * @returns {string|string}
+  */
+ function getUrlQueryParams(url_string, param)
+ {
+   if(url_string) {
+
+    //  console.debug(url_string)
+     let  url = new URL(url_string);
+     let data = url.searchParams.get(param);
+     return data ? data : '';
+   }else {
+     return ''
+   }
+ }
+  /*
+ 签名函数
+ 签名信息获取地址：https://cactus.jd.com/request_algo?g_ty=ajax
+ 方法： POST
+ 参数：{
+   appId: "10001"
+   expandParams: ""
+   fp: "5525701123405161" //fingerprint
+   platform: "web"
+   timestamp: 1614687205087
+   version: "1.0"
+ }
+ 返回结果：{data: {
+   result: {
+     algo: "function test(token,fingerprint,timestamp,appId,algo){const random='jQ1SS0VI2Vuw';const str=`${token}${fingerprint}${timestamp}${appId}${random}`;return algo.SHA512(str)}" //加密函数
+     tk: "tk01w91541b51a8nWURUM3hiZk9HHRKep5j4FeOg/jHOQoGSDcsasdSOZ+83iz4uf/YBXHcK6xMIUqqv5/iJv6F0aooT5Nd3" //token
+   }
+   version: "1.0"
+   message: ""
+   status: 200
+   }
+ }
+ 将返回参数替换：
+ const random : data.result.algo字符串中的const random='xxxxxx'
+ const token : data.result.tk
+ const fingerprint : 通过抓包APP获取
+ const hash1加密方法（例子：algo.SHA512、algo.MD5，主要看签名信息获取地址返回结果data.result.algo）
+  */
+ function decrypt(time, stk, type, url) {
+  stk = stk || (url ? getUrlQueryParams(url, '_stk') : '')
+  if (stk) {
+    const random = 'qtE78GsHndr2';
+    const token = `tk01wc58d1c21a8naWJkSUZ0UUJMPW\/dNAHcDfgyrmaVmrmZqenpYbUqVs6GIpSK\/\/9k5vyBmXZ0wI9E\/YA\/g9Ag97kf`;
+    const fingerprint = 7614570970833161;
+    const timestamp = new Date(time).Format("yyyyMMddhhmmssSSS");
+    const appId = 10001;
+
+    const str = `${token}${fingerprint}${timestamp}${appId}${random}`;
+    const hash1 = $.CryptoJS.HmacSHA512(str, token).toString($.CryptoJS.enc.Hex);
+    let st = '';
+    stk.split(',').map((item, index) => {
+      // st += `${item}:${item === '_time' ? time : item === 'zone' ? 'dream_factory' : item === 'type' ? type || '1' : ''}${index === stk.split(',').length -1 ? '' : '&'}`;
+      st += `${item}:${getUrlQueryParams(url, item)}${index === stk.split(',').length -1 ? '' : '&'}`;
+    })
+    const hash2 = $.CryptoJS.HmacSHA256(st, hash1).toString($.CryptoJS.enc.Hex);
+    console.log(`st:${st}\n`)
+    // console.log(`hash2:${JSON.stringify(["".concat(timestamp.toString()), "".concat(fingerprint.toString()), "".concat(appId.toString()), "".concat(token), "".concat(hash2)])}\n`)
+    console.log(`h5st:${["".concat(timestamp.toString()), "".concat(fingerprint.toString()), "".concat(appId.toString()), "".concat(token), "".concat(hash2)].join(";")}\n`)
+    return ["".concat(timestamp.toString()), "".concat(fingerprint.toString()), "".concat(appId.toString()), "".concat(token), "".concat(hash2)].join(";")
+  } else {
+    return '20210121201915905;8410347712257161;10001;tk01wa5bd1b5fa8nK2drQ3o3azhyhItRUb1DBNK57SQnGlXj9kmaV/iQlhKdXuz1RME5H/+NboJj8FAS9N+FcoAbf6cB;3c567a551a8e1c905a8d676d69e873c0bc7adbd8277957f90e95ab231e1800f2'
+  }
+}
+
+function decrypt1(time, stk, type) {
   if (stk) {
     const random = 'pmUmA8IyRcDp';
     const token = ``;

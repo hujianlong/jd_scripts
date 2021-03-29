@@ -1,10 +1,10 @@
 /**
  * 历史京豆收益， beanDayHistoryLength 为展示几天的收支
  */
-const beanDayHistoryLength = 3
+const beanDayHistoryLength = new Date().getDate()
 
 //是否展示今日的收益
-const showTodayDetail = true
+const showTodayDetail = false
 const $ = new Env('京豆变动历史统计');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
@@ -44,7 +44,8 @@ if ($.isNode()) {
       $.isLogin = true;
       $.nickName = '';
       $.message = '';
-      $.todayDetailMsg = '今日收益明细\n'
+      $.todayDetailMsg = ''
+      $.totalIncomeBeanMsg = '月收益：'
       await TotalBean();
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
       if (!$.isLogin) {
@@ -69,9 +70,9 @@ if ($.isNode()) {
 async function showMsg() {
   if ($.errorMsg) return
   if ($.isNode()) {
-    await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `账号${$.index}：${$.nickName || $.UserName}\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n${$.historyBeanMsg}\n${$.todayDetailMsg}`, { url: `https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean` })
+    await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `账号${$.index}：${$.nickName || $.UserName}\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n${$.historyBeanMsg}\n${$.todayDetailMsg}\n${$.totalIncomeBeanMsg}`, { url: `https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean` })
   }
-  $.msg($.name, '', `账号${$.index}：${$.nickName || $.UserName}\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n${$.historyBeanMsg}\n${$.todayDetailMsg}`, {"open-url": "https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean"});
+  $.msg($.name, '', `账号${$.index}：${$.nickName || $.UserName}\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n${$.historyBeanMsg}\n${$.todayDetailMsg}\n${$.totalIncomeBeanMsg}`, {"open-url": "https://bean.m.jd.com/bean/signIndex.actionbeanDetail/index.action?resourceValue=bean"});
 }
 async function bean() {
   // console.log(`北京时间零点时间戳:${parseInt((Date.now() + 28800000) / 86400000) * 86400000 - 28800000}`);
@@ -117,6 +118,7 @@ async function bean() {
       }
     }
   } while (t === 0);
+  let totalIncomeBean = 0
   for (let key in dayHistoryBean) {
     let incomeBean = 0, expenseBean = 0
     for(let item of dayHistoryBean[key]) {
@@ -127,6 +129,7 @@ async function bean() {
       }
     }
     $.historyBeanMsg+=`${key}: 收入${incomeBean}个京豆，支出${expenseBean}个京豆\n`
+    totalIncomeBean = incomeBean + totalIncomeBean
   }
   //展示今日收益明细
   if(showTodayDetail) {
@@ -134,6 +137,7 @@ async function bean() {
       $.todayDetailMsg += `"${item.date.substr(11)} ${item.eventMassage}" 收入 ${item.amount} 个京豆🐶\n`
     }
   }
+  $.totalIncomeBeanMsg += totalIncomeBean 
   await queryexpirejingdou();
   // console.log(`昨日收入：${$.incomeBean}个京豆 🐶`);
   // console.log(`昨日支出：${$.expenseBean}个京豆 🐶`)
