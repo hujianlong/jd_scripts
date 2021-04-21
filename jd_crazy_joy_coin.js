@@ -158,7 +158,7 @@ if ($.isNode()) {
     setInterval(async () => {
       const promiseArr = cookiesArr.map(ck => getCoinForInterval(ck));
       await Promise.all(promiseArr);
-    }, 8000);
+    }, 8000 * 4);
   }
 
   while (true) {
